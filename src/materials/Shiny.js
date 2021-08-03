@@ -4,12 +4,22 @@ import { extend } from "@react-three/fiber";
 export class ShinyMaterial extends THREE.ShaderMaterial {
   constructor() {
     super({
+      uniforms: {
+        time: { value: 0.0 },
+      },
       vertexShader: `
+            uniform float time;
             varying vec3 Normal;
             varying vec3 Position;
+            varying vec3 camPos;
+
             void main() {
                 Normal = normalize(normalMatrix * normal);
+                camPos = cameraPosition;
                 gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                if (gl_Position.x > 0.0) {
+                    gl_Position.y += sin(time);
+                }
                 Position = gl_Position.xyz;
             }`,
       fragmentShader: `
@@ -18,10 +28,10 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 vec3 Ka = vec3(0.1, 0.1, 0.1); // Ambient
                 vec3 Kd = vec3(0.1, 0.1, 0.85); // Diffuse
                 vec3 Ks = vec3(0.5, 0.5, 0.5); // Specular
-                float shininess = 50.0; // Shininess
+                float shininess = 100.0; // Shininess
                 // Light properties
                 vec3 lightColour = vec3(1.0, 1.0, 1.0);
-                vec3 ambientLight = vec3(0.3, 0.3, 0.3);
+                vec3 ambientLight = vec3(0.1, 0.1, 0.1);
                 // Halfway vector
                 vec3 H = normalize(L + V);
                 // Ambient term
@@ -40,15 +50,16 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
 
             varying vec3 Position;
             varying vec3 Normal;
+            varying vec3 camPos;
 
             void main() {
-                vec3 lightPos = vec3(100.0, 100.0, 100.0);
-                vec3 camPos = vec3(0.0, 0.0, 50.0);
+                vec3 lightPos = vec3(30.0, 30.0, 60.0);
 
                 vec3 L = normalize(lightPos - Position);
                 vec3 V = normalize(camPos - Position);
+                vec3 N = normalize(Normal);
 
-                vec3 shade = shading(Normal, V, L);
+                vec3 shade = shading(N, V, L);
                 gl_FragColor.rgb = shade;
                 gl_FragColor.a = 1.0;
             }`,

@@ -7,7 +7,6 @@ function App() {
   return (
     <Canvas camera={{ position: [0, 0, 50] }}>
       <CameraControls />
-      <pointLight position={[100, 100, 100]} />
       <Sphere position={[0, 0, 0]} />
     </Canvas>
   );
