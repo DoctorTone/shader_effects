@@ -7,3 +7,7 @@ body,
   padding: 0;
   color: white;
 }
+
+body {
+  background: rgb(119, 112, 112);
+}
