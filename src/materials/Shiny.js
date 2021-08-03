@@ -16,7 +16,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
             vec3 shading(vec3 N, vec3 V, vec3 L) {
                 // Materials
                 vec3 Ka = vec3(0.1, 0.1, 0.1); // Ambient
-                vec3 Kd = vec3(0.1, 0.1, 0.5); // Diffuse
+                vec3 Kd = vec3(0.1, 0.1, 0.85); // Diffuse
                 vec3 Ks = vec3(0.5, 0.5, 0.5); // Specular
                 float shininess = 50.0; // Shininess
                 // Light properties
