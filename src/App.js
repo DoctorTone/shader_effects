@@ -7,7 +7,9 @@ function App() {
   return (
     <Canvas camera={{ position: [20, 20, 50] }}>
       <pointLight position={[30, 30, 30]} />
-      <Sphere position={[0, 0, 0]} />
+      <Suspense fallback={null}>
+        <Sphere position={[0, 0, 0]} />
+      </Suspense>
       <Box position={[20, 20, 20]} />
       <OrbitControls />
     </Canvas>
