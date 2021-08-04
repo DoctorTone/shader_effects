@@ -10,17 +10,19 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
       vertexShader: `
             uniform float time;
             varying vec3 Normal;
-            varying vec3 Position;
+            varying vec3 LocalPos;
+            varying vec4 WorldPos;
             varying vec3 camPos;
 
             void main() {
                 Normal = normalize(normalMatrix * normal);
                 camPos = cameraPosition;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-                if (gl_Position.x > 0.0) {
-                    gl_Position.y += sin(time);
+                LocalPos = position;
+                if (LocalPos.x > 0.0) {
+                    LocalPos.y += 1.0 * sin(time);
                 }
-                Position = gl_Position.xyz;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4( LocalPos, 1.0 );
+                WorldPos = modelViewMatrix * vec4( LocalPos, 1.0 );
             }`,
       fragmentShader: `
             vec3 shading(vec3 N, vec3 V, vec3 L) {
@@ -31,7 +33,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 float shininess = 100.0; // Shininess
                 // Light properties
                 vec3 lightColour = vec3(1.0, 1.0, 1.0);
-                vec3 ambientLight = vec3(0.1, 0.1, 0.1);
+                vec3 ambientLight = vec3(0.0, 0.0, 0.0);
                 // Halfway vector
                 vec3 H = normalize(L + V);
                 // Ambient term
@@ -48,15 +50,15 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 return ambient + diffuse + specular;
             }
 
-            varying vec3 Position;
+            varying vec4 WorldPos;
             varying vec3 Normal;
             varying vec3 camPos;
 
             void main() {
-                vec3 lightPos = vec3(30.0, 30.0, 60.0);
+                vec3 lightPos = vec3(20.0, 20.0, 20.0);
 
-                vec3 L = normalize(lightPos - Position);
-                vec3 V = normalize(camPos - Position);
+                vec3 L = normalize(lightPos - WorldPos.xyz);
+                vec3 V = normalize(camPos - WorldPos.xyz);
                 vec3 N = normalize(Normal);
 
                 vec3 shade = shading(N, V, L);
