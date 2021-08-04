@@ -1,18 +1,23 @@
 import * as THREE from "three";
 import { extend } from "@react-three/fiber";
 
-const ShinyMaterial = {
-  uniforms: {
-    time: { value: 0.0 },
-  },
-  vertexShader: `
+export class ShinyMaterial extends THREE.ShaderMaterial {
+  constructor() {
+    super({
+      uniforms: {
+        time: { value: 0.0 },
+        tex: { value: undefined },
+      },
+      vertexShader: `
             uniform float time;
             varying vec3 Normal;
             varying vec3 LocalPos;
             varying vec4 WorldPos;
             varying vec3 camPos;
+            varying vec2 vUv;
 
             void main() {
+                vUv = uv;
                 Normal = normal;
                 camPos = cameraPosition;
                 LocalPos = position;
@@ -22,7 +27,7 @@ const ShinyMaterial = {
                 gl_Position = projectionMatrix * modelViewMatrix * vec4( LocalPos, 1.0 );
                 WorldPos = modelViewMatrix * vec4( LocalPos, 1.0 );
             }`,
-  fragmentShader: `
+      fragmentShader: `
             vec3 shading(vec3 N, vec3 V, vec3 L) {
                 // Materials
                 vec3 Ka = vec3(0.1, 0.1, 0.1); // Ambient
@@ -57,6 +62,8 @@ const ShinyMaterial = {
             varying vec4 WorldPos;
             varying vec3 Normal;
             varying vec3 camPos;
+            varying vec2 vUv;
+            uniform sampler2D tex;
 
             void main() {
                 vec3 lightPos = vec3(30.0, 30.0, 30.0);
@@ -66,9 +73,21 @@ const ShinyMaterial = {
                 vec3 N = normalize(Normal);
 
                 vec3 shade = shading(N, V, L);
+                vec4 _texture = texture2D(tex, vUv);
                 gl_FragColor.rgb = shade;
                 gl_FragColor.a = 1.0;
-            }`,
-};
 
-export default ShinyMaterial;
+                gl_FragColor.rgb = _texture.xyz + shade;
+            }`,
+    });
+  }
+
+  get tex() {
+    return this.uniforms.tex.value;
+  }
+  set tex(v) {
+    return (this.uniforms.tex.value = v);
+  }
+}
+
+extend({ ShinyMaterial });
