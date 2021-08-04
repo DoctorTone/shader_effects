@@ -1,6 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import React, { useRef } from "react";
-import "../materials/Shiny";
+import ShinyMaterial from "../materials/Shiny";
 
 const Sphere = (props) => {
   const ref = useRef();
@@ -8,7 +8,7 @@ const Sphere = (props) => {
   return (
     <mesh {...props}>
       <boxBufferGeometry args={[20, 20, 20]} />
-      <shinyMaterial ref={ref} />
+      <shaderMaterial attach="material" ref={ref} args={[ShinyMaterial]} />
     </mesh>
   );
 };
