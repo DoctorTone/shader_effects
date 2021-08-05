@@ -7,6 +7,7 @@ import useStore from "../state/store";
 
 const ControlPanel = () => {
   const { setTextureEnabled, textureEnabled } = useStore();
+  const { setBounceEnabled, bounceEnabled } = useStore();
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -26,14 +27,28 @@ const ControlPanel = () => {
     setTextureEnabled(event.target.checked);
   };
 
+  const toggleBounce = (event) => {
+    setBounceEnabled(event.target.checked);
+  };
+
   return (
     <div className="panel">
-      <FormControlLabel
-        control={
-          <PurpleSwitch checked={textureEnabled} onChange={toggleTexture} />
-        }
-        label="Texture"
-      />
+      <div>
+        <FormControlLabel
+          control={
+            <PurpleSwitch checked={textureEnabled} onChange={toggleTexture} />
+          }
+          label="Texture"
+        />
+      </div>
+      <div>
+        <FormControlLabel
+          control={
+            <PurpleSwitch checked={bounceEnabled} onChange={toggleBounce} />
+          }
+          label="Bounce"
+        />
+      </div>
     </div>
   );
 };
