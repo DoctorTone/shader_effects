@@ -14,8 +14,8 @@ body {
 
 .panel {
   position: absolute;
-  top: 1%;
-  left: 1%;
+  top: 20%;
+  left: 2.5%;
   width: 25%;
   z-index: 1;
 }
