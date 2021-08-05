@@ -11,3 +11,11 @@ body,
 body {
   background: rgb(119, 112, 112);
 }
+
+.panel {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  width: 25%;
+  z-index: 1;
+}
