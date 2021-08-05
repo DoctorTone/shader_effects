@@ -4,10 +4,12 @@ import Sphere from "./components/Sphere";
 import Box from "./components/Box";
 import { OrbitControls } from "@react-three/drei";
 import ControlPanel from "./components/ControlPanel";
+import Title from "./components/Title";
 
 function App() {
   return (
     <>
+      <Title />
       <ControlPanel />
       <Canvas camera={{ position: [20, 20, 50] }}>
         <pointLight position={[30, 30, 30]} />
