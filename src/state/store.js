@@ -6,6 +6,7 @@ const useStore = create((set) => ({
   bounceEnabled: true,
   setBounceEnabled: (status) => set({ bounceEnabled: status }),
   specularEnabled: true,
+  setSpecularEnabled: (status) => set({ specularEnabled: status }),
 }));
 
 export default useStore;

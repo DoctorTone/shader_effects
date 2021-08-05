@@ -8,6 +8,7 @@ import useStore from "../state/store";
 const ControlPanel = () => {
   const { setTextureEnabled, textureEnabled } = useStore();
   const { setBounceEnabled, bounceEnabled } = useStore();
+  const { setSpecularEnabled, specularEnabled } = useStore();
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -31,6 +32,10 @@ const ControlPanel = () => {
     setBounceEnabled(event.target.checked);
   };
 
+  const toggleSpecular = (event) => {
+    setSpecularEnabled(event.target.checked);
+  };
+
   return (
     <div className="panel">
       <div>
@@ -47,6 +52,14 @@ const ControlPanel = () => {
             <PurpleSwitch checked={bounceEnabled} onChange={toggleBounce} />
           }
           label="Bounce"
+        />
+      </div>
+      <div>
+        <FormControlLabel
+          control={
+            <PurpleSwitch checked={specularEnabled} onChange={toggleSpecular} />
+          }
+          label="Specular"
         />
       </div>
     </div>
