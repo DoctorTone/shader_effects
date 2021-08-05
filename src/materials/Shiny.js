@@ -9,6 +9,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
         tex: { value: undefined },
         textureEnabled: { value: true },
         bounceEnabled: { value: true },
+        specularEnabled: { value: true },
       },
       vertexShader: `
             uniform float time;
@@ -32,10 +33,10 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 WorldPos = modelViewMatrix * vec4( LocalPos, 1.0 );
             }`,
       fragmentShader: `
-            vec3 shading(vec3 N, vec3 V, vec3 L) {
+            vec3 shading(vec3 N, vec3 V, vec3 L, bool specularEnabled) {
                 // Materials
                 vec3 Ka = vec3(0.1, 0.1, 0.1); // Ambient
-                vec3 Kd = vec3(0.1, 0.1, 0.85); // Diffuse
+                vec3 Kd = vec3(0.1, 0.1, 0.1); // Diffuse
                 vec3 Ks = vec3(0.5, 0.5, 0.5); // Specular
                 float shininess = 32.0; // Shininess
 
@@ -59,7 +60,11 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 if (diffuseLight <= 0.0) {
                     specularLight = 0.0;
                 }
-                vec3 specular = lightColour * specularLight;
+                vec3 specular = vec3(0.0, 0.0, 0.0);
+                if (specularEnabled) {
+                  specular = lightColour * specularLight;
+                }
+                
                 return ambient + diffuse + specular;
             }
 
@@ -67,8 +72,10 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
             varying vec3 Normal;
             varying vec3 camPos;
             varying vec2 vUv;
+
             uniform sampler2D tex;
             uniform bool textureEnabled;
+            uniform bool specularEnabled;
 
             void main() {
                 vec3 lightPos = vec3(30.0, 30.0, 30.0);
@@ -77,7 +84,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 vec3 V = normalize(camPos - WorldPos.xyz);
                 vec3 N = normalize(Normal);
 
-                vec3 shade = shading(N, V, L);
+                vec3 shade = shading(N, V, L, specularEnabled);
                 vec4 _texture = texture2D(tex, vUv);
                 gl_FragColor.rgb = shade;
                 gl_FragColor.a = 1.0;
@@ -106,6 +113,12 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
   }
   set bounceEnabled(v) {
     return (this.uniforms.bounceEnabled.value = v);
+  }
+  get specularEnabled() {
+    return this.uniforms.specularEnabled.value;
+  }
+  set specularEnabled(v) {
+    return (this.uniforms.specularEnabled.value = v);
   }
 }
 

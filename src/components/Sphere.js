@@ -7,7 +7,7 @@ import useStore from "../state/store";
 
 const Sphere = (props) => {
   const ref = useRef();
-  const { textureEnabled, bounceEnabled } = useStore();
+  const { textureEnabled, bounceEnabled, specularEnabled } = useStore();
   const texture1 = useLoader(THREE.TextureLoader, image1);
   useFrame(() => (ref.current.uniforms.time.value += 0.16));
   return (
@@ -18,6 +18,7 @@ const Sphere = (props) => {
         tex={texture1}
         textureEnabled={textureEnabled}
         bounceEnabled={bounceEnabled}
+        specularEnabled={specularEnabled}
       />
     </mesh>
   );
