@@ -7,13 +7,18 @@ import useStore from "../state/store";
 
 const Sphere = (props) => {
   const ref = useRef();
-  const { textureEnabled } = useStore();
+  const { textureEnabled, bounceEnabled } = useStore();
   const texture1 = useLoader(THREE.TextureLoader, image1);
   useFrame(() => (ref.current.uniforms.time.value += 0.16));
   return (
     <mesh {...props}>
       <boxBufferGeometry args={[20, 20, 20]} />
-      <shinyMaterial ref={ref} tex={texture1} textureEnabled={textureEnabled} />
+      <shinyMaterial
+        ref={ref}
+        tex={texture1}
+        textureEnabled={textureEnabled}
+        bounceEnabled={bounceEnabled}
+      />
     </mesh>
   );
 };

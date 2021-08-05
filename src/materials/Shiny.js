@@ -8,9 +8,12 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
         time: { value: 0.0 },
         tex: { value: undefined },
         textureEnabled: { value: true },
+        bounceEnabled: { value: true },
       },
       vertexShader: `
             uniform float time;
+            uniform bool bounceEnabled;
+
             varying vec3 Normal;
             varying vec3 LocalPos;
             varying vec4 WorldPos;
@@ -22,7 +25,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 Normal = normal;
                 camPos = cameraPosition;
                 LocalPos = position;
-                if (LocalPos.x > 0.0) {
+                if (LocalPos.x > 0.0 && bounceEnabled) {
                     LocalPos.y += 1.0 * sin(time);
                 }
                 gl_Position = projectionMatrix * modelViewMatrix * vec4( LocalPos, 1.0 );
@@ -97,6 +100,12 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
   }
   set textureEnabled(v) {
     return (this.uniforms.textureEnabled.value = v);
+  }
+  get bounceEnabled() {
+    return this.uniforms.bounceEnabled.value;
+  }
+  set bounceEnabled(v) {
+    return (this.uniforms.bounceEnabled.value = v);
   }
 }
 
