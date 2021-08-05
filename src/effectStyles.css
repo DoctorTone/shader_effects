@@ -11,11 +11,17 @@ body,
 body {
   background: rgb(119, 112, 112);
 }
-
 .panel {
   position: absolute;
   top: 20%;
   left: 2.5%;
   width: 25%;
   z-index: 1;
+}
+.title {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  text-align: center;
 }
