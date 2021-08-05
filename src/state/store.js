@@ -7,6 +7,8 @@ const useStore = create((set) => ({
   setBounceEnabled: (status) => set({ bounceEnabled: status }),
   specularEnabled: true,
   setSpecularEnabled: (status) => set({ specularEnabled: status }),
+  currentShader: "Cube",
+  setCurrentShader: (shader) => set({ currentShader: shader }),
 }));
 
 export default useStore;

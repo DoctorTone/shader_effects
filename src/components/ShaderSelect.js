@@ -4,6 +4,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
+import useStore from "../state/store";
 
 const ShaderSelect = () => {
   const useStyles = makeStyles((theme) => ({
@@ -23,10 +24,10 @@ const ShaderSelect = () => {
     color: "white",
   };
 
-  const [shader, setShader] = useState("Cube");
+  const { currentShader, setCurrentShader } = useStore();
 
   const changeShader = (event) => {
-    setShader(event.target.value);
+    setCurrentShader(event.target.value);
   };
 
   return (
@@ -35,7 +36,7 @@ const ShaderSelect = () => {
         <InputLabel style={whiteText} id="shaderSelect">
           Shader
         </InputLabel>
-        <Select id="shaderSelect" value={shader} onChange={changeShader}>
+        <Select id="shaderSelect" value={currentShader} onChange={changeShader}>
           <MenuItem value="Cube">Cube</MenuItem>
           <MenuItem value="Sphere">Sphere</MenuItem>
         </Select>
