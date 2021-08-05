@@ -11,6 +11,13 @@ body,
 body {
   background: rgb(119, 112, 112);
 }
+/* Text colours */
+.whiteText {
+  color: white;
+}
+.orangeText {
+  color: orange;
+}
 .panel {
   position: absolute;
   top: 25%;

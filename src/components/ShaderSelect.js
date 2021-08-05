@@ -11,7 +11,6 @@ const ShaderSelect = () => {
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
-      color: "white",
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -20,14 +19,18 @@ const ShaderSelect = () => {
 
   const classes = useStyles();
 
-  const whiteText = {
-    color: "white",
-  };
-
   const { currentShader, setCurrentShader } = useStore();
 
   const changeShader = (event) => {
     setCurrentShader(event.target.value);
+  };
+
+  const whiteText = {
+    color: "white",
+  };
+
+  const orangeText = {
+    color: "orange",
   };
 
   return (
@@ -36,7 +39,12 @@ const ShaderSelect = () => {
         <InputLabel style={whiteText} id="shaderSelect">
           Shader
         </InputLabel>
-        <Select id="shaderSelect" value={currentShader} onChange={changeShader}>
+        <Select
+          style={orangeText}
+          id="shaderSelect"
+          value={currentShader}
+          onChange={changeShader}
+        >
           <MenuItem value="Cube">Cube</MenuItem>
           <MenuItem value="Sphere">Sphere</MenuItem>
         </Select>
