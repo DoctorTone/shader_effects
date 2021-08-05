@@ -7,6 +7,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
       uniforms: {
         time: { value: 0.0 },
         tex: { value: undefined },
+        textureEnabled: { value: true },
       },
       vertexShader: `
             uniform float time;
@@ -64,6 +65,7 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
             varying vec3 camPos;
             varying vec2 vUv;
             uniform sampler2D tex;
+            uniform bool textureEnabled;
 
             void main() {
                 vec3 lightPos = vec3(30.0, 30.0, 30.0);
@@ -77,7 +79,9 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
                 gl_FragColor.rgb = shade;
                 gl_FragColor.a = 1.0;
 
-                gl_FragColor.rgb = _texture.xyz + shade;
+                if (textureEnabled) {
+                  gl_FragColor.rgb = _texture.xyz + shade;
+                }
             }`,
     });
   }
@@ -87,6 +91,12 @@ export class ShinyMaterial extends THREE.ShaderMaterial {
   }
   set tex(v) {
     return (this.uniforms.tex.value = v);
+  }
+  get textureEnabled() {
+    return this.uniforms.textureEnabled.value;
+  }
+  set textureEnabled(v) {
+    return (this.uniforms.textureEnabled.value = v);
   }
 }
 
