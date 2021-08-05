@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import Cube from "./components/Cube";
 import Box from "./components/Box";
+import Sphere from "./components/Sphere";
 import { OrbitControls } from "@react-three/drei";
 import ControlPanel from "./components/ControlPanel";
 import Title from "./components/Title";
@@ -20,6 +21,7 @@ function App() {
         <pointLight position={[30, 30, 30]} />
         <Suspense fallback={null}>
           {currentShader === "Cube" && <Cube position={[0, 0, 0]} />}
+          {currentShader === "Sphere" && <Sphere position={[0, 0, 0]} />}
         </Suspense>
         <Box position={[20, 20, 20]} />
         <OrbitControls />
