@@ -25,7 +25,7 @@ const ControlPanel = () => {
     <div className="panel">
       <FormControlLabel
         control={<PurpleSwitch onChange={toggleTexture} />}
-        label="Shadows"
+        label="Texture"
       />
     </div>
   );
