@@ -14,7 +14,7 @@ export class NormalMaterial extends THREE.ShaderMaterial {
       fragmentShader: `
                 varying vec2 vUv;
 
-                voiod main() {
+                void main() {
                     gl_FragColor = vec4(vUv.x, vUv.y, 1.0, 1.0);
                 }`,
     });
