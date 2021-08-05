@@ -39,6 +39,9 @@ const ControlPanel = () => {
   return (
     <div className="panel">
       <div>
+        <h3>Configuration</h3>
+      </div>
+      <div>
         <FormControlLabel
           control={
             <PurpleSwitch checked={textureEnabled} onChange={toggleTexture} />
