@@ -9,6 +9,7 @@ const ControlPanel = () => {
   const { setTextureEnabled, textureEnabled } = useStore();
   const { setBounceEnabled, bounceEnabled } = useStore();
   const { setSpecularEnabled, specularEnabled } = useStore();
+  const { currentShader } = useStore();
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -37,35 +38,40 @@ const ControlPanel = () => {
   };
 
   return (
-    <div className="panel">
-      <div>
-        <h3>Configuration</h3>
+    currentShader === "Cube" && (
+      <div className="panel">
+        <div>
+          <h3>Configuration</h3>
+        </div>
+        <div>
+          <FormControlLabel
+            control={
+              <PurpleSwitch checked={textureEnabled} onChange={toggleTexture} />
+            }
+            label="Texture"
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={
+              <PurpleSwitch checked={bounceEnabled} onChange={toggleBounce} />
+            }
+            label="Bounce"
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={
+              <PurpleSwitch
+                checked={specularEnabled}
+                onChange={toggleSpecular}
+              />
+            }
+            label="Specular"
+          />
+        </div>
       </div>
-      <div>
-        <FormControlLabel
-          control={
-            <PurpleSwitch checked={textureEnabled} onChange={toggleTexture} />
-          }
-          label="Texture"
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={
-            <PurpleSwitch checked={bounceEnabled} onChange={toggleBounce} />
-          }
-          label="Bounce"
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={
-            <PurpleSwitch checked={specularEnabled} onChange={toggleSpecular} />
-          }
-          label="Specular"
-        />
-      </div>
-    </div>
+    )
   );
 };
 
