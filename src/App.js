@@ -5,12 +5,14 @@ import Box from "./components/Box";
 import { OrbitControls } from "@react-three/drei";
 import ControlPanel from "./components/ControlPanel";
 import Title from "./components/Title";
+import ShaderSelect from "./components/ShaderSelect";
 
 function App() {
   return (
     <>
       <Title />
       <ControlPanel />
+      <ShaderSelect />
       <Canvas camera={{ position: [20, 20, 50] }}>
         <pointLight position={[30, 30, 30]} />
         <Suspense fallback={null}>

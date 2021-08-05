@@ -18,6 +18,12 @@ body {
   width: 25%;
   z-index: 1;
 }
+.selectPanel {
+  position: absolute;
+  top: 25%;
+  right: 2.5%;
+  z-index: 1;
+}
 .title {
   position: absolute;
   top: 0%;
