@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,15 +23,21 @@ const ShaderSelect = () => {
     color: "white",
   };
 
+  const [shader, setShader] = useState("Cube");
+
+  const changeShader = (event) => {
+    setShader(event.target.value);
+  };
+
   return (
     <div className="selectPanel">
       <FormControl className={classes.formControl}>
         <InputLabel style={whiteText} id="shaderSelect">
           Shader
         </InputLabel>
-        <Select id="shaderSelect">
-          <MenuItem>Cube</MenuItem>
-          <MenuItem>Sphere</MenuItem>
+        <Select id="shaderSelect" value={shader} onChange={changeShader}>
+          <MenuItem value="Cube">Cube</MenuItem>
+          <MenuItem value="Sphere">Sphere</MenuItem>
         </Select>
       </FormControl>
     </div>
