@@ -23,7 +23,7 @@ function App() {
         <Suspense fallback={null}>
           {currentShader === "Cube" && <Cube position={[0, 0, 0]} />}
           {currentShader === "Sphere" && <Sphere position={[0, 0, 0]} />}
-          <Plane />
+          {currentShader === "Plane" && <Plane position={[0, 0, 0]} />}
         </Suspense>
         <Box position={[20, 20, 20]} />
         <OrbitControls />
