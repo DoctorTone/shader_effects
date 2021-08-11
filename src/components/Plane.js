@@ -7,6 +7,7 @@ import "../materials/FlagMaterial";
 const Plane = (props) => {
   const ref = useRef();
   const flagTexture = useLoader(THREE.TextureLoader, flagImage);
+  useFrame(() => (ref.current.uniforms.time.value += 0.16));
   return (
     <mesh {...props}>
       <planeBufferGeometry args={[50, 50, 32, 32]} />

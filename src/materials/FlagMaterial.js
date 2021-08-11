@@ -20,9 +20,13 @@ export class FlagMaterial extends THREE.ShaderMaterial {
         varying vec2 vUv;
 
         uniform sampler2D tex;
+        uniform float time;
 
         void main() {
-            vec3 flag = texture2D(tex, vUv).rgb;
+            vec2 wave = vUv;
+            wave.x += sin(time * 0.25) * 0.05;
+            wave.y += sin(time + 45.0) * 0.05;
+            vec3 flag = texture2D(tex, wave).rgb;
             gl_FragColor.rgb = flag;
             gl_FragColor.a = 1.0;
         }
