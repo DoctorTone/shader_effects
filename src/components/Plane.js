@@ -1,11 +1,16 @@
-import React from "react";
-import { PlaneBufferGeometry } from "three";
+import React, { useRef } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
+import * as THREE from "three";
+import flagImage from "../images/drt.jpg";
+import "../materials/FlagMaterial";
 
 const Plane = (props) => {
+  const ref = useRef();
+  const flagTexture = useLoader(THREE.TextureLoader, flagImage);
   return (
     <mesh {...props}>
       <planeBufferGeometry args={[50, 50, 32, 32]} />
-      <meshBasicMaterial color={"blue"} />
+      <flagMaterial ref={ref} tex={flagTexture} />
     </mesh>
   );
 };

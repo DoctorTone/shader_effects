@@ -38,4 +38,4 @@ export class FlagMaterial extends THREE.ShaderMaterial {
   }
 }
 
-export default FlagMaterial;
+extend({ FlagMaterial });
