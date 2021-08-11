@@ -47,6 +47,7 @@ const ShaderSelect = () => {
         >
           <MenuItem value="Cube">Cube</MenuItem>
           <MenuItem value="Sphere">Sphere</MenuItem>
+          <MenuItem value="Plane">Plane</MenuItem>
         </Select>
       </FormControl>
     </div>
